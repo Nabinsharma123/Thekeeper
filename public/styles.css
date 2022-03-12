@@ -125,6 +125,23 @@ form.create-note button:hover{
 }
 
 
+form.editnote input,
+form.editnote textarea {
+  
+  width: 100%;
+  border: none;
+  padding: 4px;
+  outline: none;
+  font-size: 1.5em;
+  font-family: inherit;
+  resize: none;
+}
+
+form.editnote input{
+  border-bottom: 1px solid black;
+}
+
+
 
 
 

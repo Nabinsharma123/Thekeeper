@@ -10,9 +10,7 @@ import Axios from "axios";
 
 function App() {
 
-    const [notes, setnotes] = useState([
-
-    ])
+    const [notes, setnotes] = useState([])
 
 
   Axios.get("https://fierce-spire-14700.herokuapp.com/").then((response)=>{

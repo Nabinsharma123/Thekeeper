@@ -42,7 +42,7 @@ function App() {
             {notes.map((noteitems, index) => {
                 return <Notes onDelete={deleteItem} id={noteitems._id.valueOf()} key={index} heading={noteitems.title} content={noteitems.content} />
             })}
-            <Footer />
+            {/* <Footer /> */}
         </div>
 
     );

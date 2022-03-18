@@ -39,10 +39,11 @@ body{
   color: dimgray;
 }
 .note{
+  
   font-size: 0.8rem;
   background-color: white;
- max-width: 300px;
- min-width: 300px;
+ max-width: 250px;
+ min-width: 250px;
   padding: 10px;
   border-radius: 10px;
   box-shadow: 0 2px 5px #ccc;
@@ -162,6 +163,8 @@ padding: 32px;
 width: 25%;
 border-radius: 10px;
 background-color: white;
+font-size: 0.6rem;
+
  
 }
 .popup-inner button{
@@ -180,11 +183,19 @@ background-color: white;
   background-color: white;
 }
 
+
 @media (max-width:757px){
   .popup-inner{
     width: 70%;
   }
+  .note{
+    max-width: 300px;
+    min-width: 200px;
+  }
+
 }
+
+
 
 
 

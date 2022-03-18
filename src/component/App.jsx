@@ -4,7 +4,7 @@ import Footer from "./Footer";
 import InputArea from "./inputArea";
 import Notes from "./Note";
 import Axios from "axios";
-
+import Popup from "./Popup";
 
 
 
@@ -12,6 +12,8 @@ import Axios from "axios";
 function App() {
 
     const [notes, setnotes] = useState([])
+    const [isdelete,setisdelete]=useState(false);
+    const [deleteID,setdeleteID]=useState("");
 
   Axios.get("https://fierce-spire-14700.herokuapp.com/").then((response)=>{
       setnotes(response.data)
@@ -26,26 +28,29 @@ function App() {
         Axios.post("https://fierce-spire-14700.herokuapp.com/",data);
     }
 
-    function deleteItem(id) {
+    function deleteItem() {
         let data={
-            id:id
+            id:deleteID
         }
         Axios.post("https://fierce-spire-14700.herokuapp.com/delete",data);
        
-
+        setisdelete(false)
     }
 
-  
-
+    function setdelete(id){
+        setisdelete(true);
+        setdeleteID(id);
+    }
     return (
         <div>
             <Header />
             <InputArea onAdd={addNotes} />
-            {notes.map((noteitems, index) => {
-                return <Notes onDelete={deleteItem} id={noteitems._id.valueOf()} key={index} heading={noteitems.title} content={noteitems.content} />
-            })}
+            <div className="allNotes" > {notes.map((noteitems, index) => {
+                return <Notes onDelete={setdelete} id={noteitems._id.valueOf()} key={index} heading={noteitems.title} content={noteitems.content} />
+            })}</div>
+           
             
-         
+            { isdelete?  <Popup onDelete={deleteItem} unDelete={()=>{setisdelete(false)}} />:""}
             {/* <Footer /> */}
         </div>
 

@@ -13,7 +13,7 @@ function note(props) {
     const [isOver_edit, setOver_edit] = useState(false);
     const [isOver_delete, setOver_delete] = useState(false);
     const [Editmode, setEditmode] = useState(false);
-    const [isdelete,setisdelete]=useState(false);
+    // const [isdelete,setisdelete]=useState(false);
 
     const [inputText, setinputText] = useState({
         "_id": "",
@@ -38,7 +38,7 @@ function note(props) {
 
     function Delete() {
         props.onDelete(props.id)
-        setdelete();
+       
     }
     function edit() {
         setEditmode(!Editmode);
@@ -70,9 +70,7 @@ function note(props) {
         setOver_edit(false)
     }
 
-    function setdelete(){
-        setisdelete(!isdelete)
-    }
+   
 
 
     return <div className="note  " >
@@ -80,7 +78,7 @@ function note(props) {
            
            <form className="editnote" >
            <input name="title" value={inputText.title} onChange={HandelChange} />
-           <textarea name="content" value={inputText.content} onChange={HandelChange} />
+           <textarea autoFocus name="content" value={inputText.content} onChange={HandelChange} />
             </form>
 
 
@@ -93,7 +91,7 @@ function note(props) {
         <button
          onMouseOver={MouseOver_delete}
             onMouseOut={MouseOut_delete}
-            onClick={setdelete} >
+            onClick={Delete} >
             <DeleteIcon
                 fontSize={isOver_delete ? "large" : "medium"} />
         </button>
@@ -110,7 +108,7 @@ function note(props) {
             onMouseOut={MouseOut_edit} > <EditIcon fontSize={isOver_edit ? "large" : "medium"} />  </button>} 
        
 
-       { isdelete?  <Popup onDelete={Delete} unDelete={setdelete} />:""}
+       {/* { isdelete?  <Popup onDelete={Delete} unDelete={setdelete} />:""} */}
 
     </div>
 }

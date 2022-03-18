@@ -8,10 +8,10 @@ import Axios from "axios";
 
 
 
+
 function App() {
 
     const [notes, setnotes] = useState([])
-
 
   Axios.get("https://fierce-spire-14700.herokuapp.com/").then((response)=>{
       setnotes(response.data)
@@ -35,6 +35,8 @@ function App() {
 
     }
 
+  
+
     return (
         <div>
             <Header />
@@ -42,6 +44,8 @@ function App() {
             {notes.map((noteitems, index) => {
                 return <Notes onDelete={deleteItem} id={noteitems._id.valueOf()} key={index} heading={noteitems.title} content={noteitems.content} />
             })}
+            
+         
             {/* <Footer /> */}
         </div>
 

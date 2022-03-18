@@ -14,9 +14,15 @@ function inputArea(props) {
         content: ""
     });
     const [isExpanded, setisExpanded] = useState(false);
+
+
+
+
     function expand() {
-        setisExpanded(true)
+        setisExpanded(!isExpanded)
     }
+    
+
 
     function HandelChange(event) {
         const { name, value } = event.target;
@@ -35,25 +41,34 @@ function inputArea(props) {
         event.preventDefault();
     }
 
+    
+
     return (
         <div >
-            <form className="create-note" >
-                {isExpanded ?
+            <form className="create-note"  >
+                {isExpanded ?<div>
+                
                     <input name="title"
+                   
                         onChange={HandelChange}
                         placeholder="Title"
                         type="text" value={inputText.title} />
-                    : null}
 
+                 <textarea name="content"
 
-                <textarea name="content"
-                    onClick={expand}
+                    autoFocus
                     onChange={HandelChange}
                     placeholder="Take a note....."
                     rows={isExpanded ? 3 : 1}
                     value={inputText.content}
-
                 />
+                    </div>
+                    : 
+                    
+                    <input name="title"
+                    onClick={expand}
+                        placeholder="Take a note....."
+                        type="text"  />}
 
                 <Zoom in={isExpanded} >
                     <Fab onClick={submitNote} > <AddIcon /> </Fab>

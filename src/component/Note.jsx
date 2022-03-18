@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Input } from "@mui/material";
 import Axios from "axios";
 import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
 
+import Popup from "./Popup";
 
 
 
@@ -14,6 +13,7 @@ function note(props) {
     const [isOver_edit, setOver_edit] = useState(false);
     const [isOver_delete, setOver_delete] = useState(false);
     const [Editmode, setEditmode] = useState(false);
+    const [isdelete,setisdelete]=useState(false);
 
     const [inputText, setinputText] = useState({
         "_id": "",
@@ -38,6 +38,7 @@ function note(props) {
 
     function Delete() {
         props.onDelete(props.id)
+        setdelete();
     }
     function edit() {
         setEditmode(!Editmode);
@@ -69,6 +70,11 @@ function note(props) {
         setOver_edit(false)
     }
 
+    function setdelete(){
+        setisdelete(!isdelete)
+    }
+
+
     return <div className="note  " >
            {Editmode? 
            
@@ -84,20 +90,27 @@ function note(props) {
                 <p>{props.content}</p>
                 </div>}
               
-        <button onMouseOver={MouseOver_delete}
+        <button
+         onMouseOver={MouseOver_delete}
             onMouseOut={MouseOut_delete}
-            onClick={Delete} >
+            onClick={setdelete} >
             <DeleteIcon
                 fontSize={isOver_delete ? "large" : "medium"} />
         </button>
+
+
        {Editmode? <button onClick={updateNote}
         onMouseOver={MouseOver_edit}
             onMouseOut={MouseOut_edit} 
               > <DoneIcon fontSize={isOver_edit ? "large" : "medium"} /> </button> 
+
        :
+
         <button onClick={edit}  onMouseOver={MouseOver_edit}
             onMouseOut={MouseOut_edit} > <EditIcon fontSize={isOver_edit ? "large" : "medium"} />  </button>} 
        
+
+       { isdelete?  <Popup onDelete={Delete} unDelete={setdelete} />:""}
 
     </div>
 }

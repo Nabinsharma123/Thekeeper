@@ -13,7 +13,6 @@ function note(props) {
     const [isOver_edit, setOver_edit] = useState(false);
     const [isOver_delete, setOver_delete] = useState(false);
     const [Editmode, setEditmode] = useState(false);
-    // const [isdelete,setisdelete]=useState(false);
 
     const [inputText, setinputText] = useState({
         "_id": "",
@@ -33,19 +32,19 @@ function note(props) {
     function MouseOut_delete() {
         setOver_delete(false);
     }
-    
+
 
 
     function Delete() {
         props.onDelete(props.id)
-       
+
     }
     function edit() {
         setEditmode(!Editmode);
         setOver_edit(false)
 
     }
-  
+
     function HandelChange(event) {
         const { name, value } = event.target;
         setinputText((prevNote) => {
@@ -55,41 +54,41 @@ function note(props) {
             }
         });
     }
-   
+
     function updateNote(event) {
-            let data={
-                _id:props.id,
-                title:inputText.title,
-                content:inputText.content
-                 
-            }
-            Axios.post("https://fierce-spire-14700.herokuapp.com/update",data)
-           
+        let data = {
+            _id: props.id,
+            title: inputText.title,
+            content: inputText.content
+
+        }
+        Axios.post("https://fierce-spire-14700.herokuapp.com/update", data)
+
         edit()
         event.preventDefault()
         setOver_edit(false)
     }
 
-   
+
 
 
     return <div className="note  " >
-           {Editmode? 
-           
-           <form className="editnote" >
-           <input name="title" value={inputText.title} onChange={HandelChange} />
-           <textarea autoFocus name="content" value={inputText.content} onChange={HandelChange} />
+        {Editmode ?
+
+            <form className="editnote" >
+                <input name="title" value={inputText.title} onChange={HandelChange} />
+                <textarea autoFocus name="content" value={inputText.content} onChange={HandelChange} />
             </form>
 
 
-           :
-           <div>
-           <h1> {props.heading}</h1>
+            :
+            <div>
+                <h1> {props.heading}</h1>
                 <p>{props.content}</p>
-                </div>}
-              
+            </div>}
+
         <button
-         onMouseOver={MouseOver_delete}
+            onMouseOver={MouseOver_delete}
             onMouseOut={MouseOut_delete}
             onClick={Delete} >
             <DeleteIcon
@@ -97,18 +96,18 @@ function note(props) {
         </button>
 
 
-       {Editmode? <button onClick={updateNote}
-        onMouseOver={MouseOver_edit}
-            onMouseOut={MouseOut_edit} 
-              > <DoneIcon fontSize={isOver_edit ? "large" : "medium"} /> </button> 
+        {Editmode ? <button onClick={updateNote}
+            onMouseOver={MouseOver_edit}
+            onMouseOut={MouseOut_edit}
+        > <DoneIcon fontSize={isOver_edit ? "large" : "medium"} /> </button>
 
-       :
+            :
 
-        <button onClick={edit}  onMouseOver={MouseOver_edit}
-            onMouseOut={MouseOut_edit} > <EditIcon fontSize={isOver_edit ? "large" : "medium"} />  </button>} 
-       
+            <button onClick={edit} onMouseOver={MouseOver_edit}
+                onMouseOut={MouseOut_edit} > <EditIcon fontSize={isOver_edit ? "large" : "medium"} />  </button>}
 
-       {/* { isdelete?  <Popup onDelete={Delete} unDelete={setdelete} />:""} */}
+
+        {/* { isdelete?  <Popup onDelete={Delete} unDelete={setdelete} />:""} */}
 
     </div>
 }

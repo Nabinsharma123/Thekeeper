@@ -1,0 +1,9 @@
+.loading_screen {
+  position: fixed;
+  width: 8rem;
+  height: 8rem;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10vh 10vh 0 0;
+}

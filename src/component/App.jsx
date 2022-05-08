@@ -5,6 +5,9 @@ import InputArea from "./inputArea";
 import Notes from "./Note";
 import Axios from "axios";
 import Popup from "./Popup";
+import Loading from "./loading";
+import { useEffect } from "react";
+import note from "./Note";
 
 
 
@@ -12,34 +15,61 @@ import Popup from "./Popup";
 function App() {
 
     const [notes, setnotes] = useState([])
+    const [isAdd, setisAdd] = useState(false);
+    const isAddToggle = () => {
+        setisAdd(!isAdd);
+    }
     const [isdelete, setisdelete] = useState(false);
     const [deleteID, setdeleteID] = useState("");
-
-    Axios.get("https://fierce-spire-14700.herokuapp.com/").then((response) => {
-        setnotes(response.data)
-    }).catch(err => console.log(err))
+    const [isLoad, setisLoad] = useState(true);
+    const fetchData = () => {
+        Axios.get("https://fierce-spire-14700.herokuapp.com/").then((response) => {
+          setnotes(response.data)
+          console.log(response.data);
+          setisLoad(false);
+      }).catch(err => console.log(err))
+    }
+    useEffect(() => {
+      
+        fetchData();
+    }, [isAdd])
+    
+    
 
 
     function addNotes(newNotes) {
+        setisLoad(true);
         let data = {
             title: newNotes.title,
             content: newNotes.content
         }
-        Axios.post("https://fierce-spire-14700.herokuapp.com/", data);
+        Axios.post("https://fierce-spire-14700.herokuapp.com/", data).then(res => {
+            isAddToggle();
+        })
+        
+        
+
     }
 
     function deleteItem() {
+        setisLoad(true);
         let data = {
             id: deleteID
         }
-        Axios.post("https://fierce-spire-14700.herokuapp.com/delete", data);
-
+        Axios.post("https://fierce-spire-14700.herokuapp.com/delete", data)
+            let delresult = notes.find(obj => {
+            return obj.id === deleteID
+            })
+        notes.pop(delresult);  
         setisdelete(false)
+        // fetchData();
+        
     }
 
     function setdelete(id) {
         setisdelete(true);
         setdeleteID(id);
+
     }
     return (
         <div>
@@ -51,6 +81,9 @@ function App() {
 
 
             {isdelete ? <Popup onDelete={deleteItem} unDelete={() => { setisdelete(false) }} /> : ""}
+            {
+                isLoad?<Loading></Loading>:<></>
+            }
 
         </div>
 

@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DeleteIcon from '@mui/icons-material/Delete';
-import Axios from "axios";
+
 import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
 
-import Popup from "./Popup";
 
 
 
@@ -19,6 +18,8 @@ function note(props) {
         title: props.heading,
         content: props.content
     });
+
+
 
     function MouseOver_edit() {
         setOver_edit(true);
@@ -40,6 +41,7 @@ function note(props) {
 
     }
     function edit() {
+
         setEditmode(!Editmode);
         setOver_edit(false)
 
@@ -62,8 +64,7 @@ function note(props) {
             content: inputText.content
 
         }
-        Axios.post("https://fierce-spire-14700.herokuapp.com/update", data)
-
+        props.onUpdate(data);
         edit()
         event.preventDefault()
         setOver_edit(false)
@@ -106,8 +107,6 @@ function note(props) {
             <button onClick={edit} onMouseOver={MouseOver_edit}
                 onMouseOut={MouseOut_edit} > <EditIcon fontSize={isOver_edit ? "large" : "medium"} />  </button>}
 
-
-        {/* { isdelete?  <Popup onDelete={Delete} unDelete={setdelete} />:""} */}
 
     </div>
 }

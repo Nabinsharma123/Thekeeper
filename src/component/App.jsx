@@ -5,9 +5,8 @@ import InputArea from "./inputArea";
 import Notes from "./Note";
 import Axios from "axios";
 import Popup from "./Popup";
-import Loading from "./loading";
 import { useEffect } from "react";
-import note from "./Note";
+
 
 
 
@@ -15,26 +14,24 @@ import note from "./Note";
 function App() {
 
     const [notes, setnotes] = useState([])
-    const [isAdd, setisAdd] = useState(false);
-    const isAddToggle = () => {
-        setisAdd(!isAdd);
-    }
+
     const [isdelete, setisdelete] = useState(false);
     const [deleteID, setdeleteID] = useState("");
     const [isLoad, setisLoad] = useState(true);
     const fetchData = () => {
+        setisLoad(true);
+
         Axios.get("https://fierce-spire-14700.herokuapp.com/").then((response) => {
-          setnotes(response.data)
-          console.log(response.data);
-          setisLoad(false);
-      }).catch(err => console.log(err))
+            setnotes(response.data);
+            setisLoad(false);
+        }).catch(err => console.log(err))
     }
     useEffect(() => {
-      
+
         fetchData();
-    }, [isAdd])
-    
-    
+    }, [])
+
+
 
 
     function addNotes(newNotes) {
@@ -43,27 +40,44 @@ function App() {
             title: newNotes.title,
             content: newNotes.content
         }
+
         Axios.post("https://fierce-spire-14700.herokuapp.com/", data).then(res => {
-            isAddToggle();
+            setisLoad(true)
+            fetchData();
+
         })
-        
-        
+
+
 
     }
 
-    function deleteItem() {
+    function updateItem(data) {
         setisLoad(true);
+        Axios.post("https://fierce-spire-14700.herokuapp.com/update", data).then((res) => {
+            if (res) {
+                fetchData();
+
+            }
+        });
+
+    }
+
+
+    function deleteItem() {
+
+        setisdelete(false);
+        setisLoad(true);
+
+
         let data = {
             id: deleteID
         }
-        Axios.post("https://fierce-spire-14700.herokuapp.com/delete", data)
-            let delresult = notes.find(obj => {
-            return obj.id === deleteID
-            })
-        notes.pop(delresult);  
-        setisdelete(false)
-        // fetchData();
-        
+        Axios.post("https://fierce-spire-14700.herokuapp.com/delete", data).then((res) => {
+            if (res) {
+                fetchData();
+            }
+        });
+
     }
 
     function setdelete(id) {
@@ -74,16 +88,14 @@ function App() {
     return (
         <div>
             <Header />
-            <InputArea onAdd={addNotes} />
+            <InputArea onRefresh={fetchData} onAdd={addNotes} loading={isLoad} />
             <div className="allNotes" > {notes.map((noteitems, index) => {
-                return <Notes onDelete={setdelete} id={noteitems._id.valueOf()} key={index} heading={noteitems.title} content={noteitems.content} />
+                return <Notes onDelete={setdelete} onUpdate={updateItem} id={noteitems._id.valueOf()} key={index} heading={noteitems.title} content={noteitems.content} />
             })}</div>
 
 
             {isdelete ? <Popup onDelete={deleteItem} unDelete={() => { setisdelete(false) }} /> : ""}
-            {
-                isLoad?<Loading></Loading>:<></>
-            }
+
 
         </div>
 

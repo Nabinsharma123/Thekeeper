@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import Zoom from '@mui/material/Zoom';
+import Loading from "./loading";
+import Cloud from "./Cloud";
 
 
 function inputArea(props) {
@@ -21,7 +23,7 @@ function inputArea(props) {
     function expand() {
         setisExpanded(!isExpanded)
     }
-    
+
 
 
     function HandelChange(event) {
@@ -41,36 +43,41 @@ function inputArea(props) {
         event.preventDefault();
     }
 
-    
+
 
     return (
         <div >
             <form className="create-note"  >
-                {isExpanded ?<div>
-                
+                {props.loading ? <Loading />
+
+                    :
+
+                    <button className="refresh_button" onClick={() => { props.onRefresh(); }} ><Cloud /></button>}
+                {isExpanded ? <div>
+
                     <input name="title"
-                   
+
                         onChange={HandelChange}
                         placeholder="Title"
                         type="text" value={inputText.title} />
 
-                 <textarea name="content"
+                    <textarea name="content"
 
-                    autoFocus
-                    onChange={HandelChange}
-                    placeholder="Take a note....."
-                    rows={isExpanded ? 3 : 1}
-                    value={inputText.content}
-                />
-                    </div>
-                    : 
-                    
-                    <input name="title"
-                    onClick={expand}
+                        autoFocus
+                        onChange={HandelChange}
                         placeholder="Take a note....."
-                        type="text"  />}
+                        rows={isExpanded ? 3 : 1}
+                        value={inputText.content}
+                    />
+                </div>
+                    :
 
-                <Zoom in={isExpanded} >
+                    <input name="title"
+                        onClick={expand}
+                        placeholder="Take a note....."
+                        type="text" />}
+
+                <Zoom className="addIcon" in={isExpanded} >
                     <Fab onClick={submitNote} > <AddIcon /> </Fab>
                 </Zoom>
 

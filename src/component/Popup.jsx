@@ -1,21 +1,15 @@
 import React, { useState } from "react";
 
-function popups(props){
+function popups(props) {
 
-    function Delete(){
-        props.onDelete()
-    }
-    function unDelete(){
-        props.unDelete()
-    }
-    return(
+    return (
         <div className="popup" >
-        <div  className="popup-inner" >
-        <h1  >Are You Sure?</h1>
-        <button onClick={unDelete} > No </button>
-        <button onClick={Delete}  > Yes </button>
-        </div>
-        
+            <div className="popup-inner" >
+                <h1  >Are You Sure?</h1>
+                <button onClick={() => { props.unDelete() }} > No </button>
+                <button onClick={() => { props.onDelete() }}  > Yes </button>
+            </div>
+
         </div>
     )
 }

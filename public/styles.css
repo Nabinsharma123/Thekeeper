@@ -1,34 +1,38 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 
- * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-  }
-html{
+html {
   font-family: "Montserrat", sans-serif;
 }
-body{
+
+body {
   background: #eee;
   background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
   padding: 0 16px;
   margin: 0;
 }
-.heading{
-  background-color:#f5ba13 ;
+
+.heading {
+  background-color: #f5ba13;
   font-family: 'Pacifico', cursive;
   font-size: 2rem;
   color: white;
   font-weight: lighter;
-  margin: 0 -16px; 
+  margin: 0 -16px;
   padding: 10px;
-  padding-left: 40px; 
+  padding-left: 40px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
 }
-.heading svg{
+
+.heading svg {
   position: relative;
   top: 4px;
 }
-.footer{
+
+.footer {
   position: absolute;
   bottom: 10px;
   right: 16px;
@@ -38,12 +42,15 @@ body{
   text-align: center;
   color: dimgray;
 }
-.note{
-  
+
+
+
+.note {
+
   font-size: 0.8rem;
   background-color: white;
- max-width: 250px;
- min-width: 250px;
+  width: 250px;
+
   padding: 10px;
   border-radius: 10px;
   box-shadow: 0 2px 5px #ccc;
@@ -52,24 +59,38 @@ body{
   display: inline-block;
 }
 
-.note:hover{
+.note:hover {
   box-shadow: 5px 5px 10px 1px #ccc;
 
 }
-.note h1{
+
+@media (max-width:500px) {
+  .note {
+    width: 100%;
+
+    margin: 10px 0 10px 0;
+
+  }
+}
+
+
+
+
+.note h1 {
   font-size: 1.1rem;
   margin: 0;
   margin-bottom: 6px;
   white-space: pre-wrap;
   overflow-wrap: break-word;
 }
-.note p{
+
+.note p {
   font-size: 1rem;
   margin: 0;
   margin-bottom: 10px;
   white-space: pre-wrap;
   overflow-wrap: break-word;
-} 
+}
 
 
 
@@ -96,6 +117,7 @@ form.create-note {
   border-radius: 7px;
   box-shadow: 0 1px 5px rgb(138, 137, 137);
 }
+
 form.create-note input,
 form.create-note textarea {
   width: 100%;
@@ -106,7 +128,9 @@ form.create-note textarea {
   font-family: inherit;
   resize: none;
 }
-form.create-note button {
+
+form.create-note .addIcon {
+  z-index: 1;
   position: absolute;
   right: 18px;
   bottom: -18px;
@@ -120,15 +144,16 @@ form.create-note button {
   cursor: pointer;
   outline: none;
 }
-form.create-note button:hover{
+
+form.create-note .addIcon:hover {
   background: #fff;
-  color:#f5ba13 ;
+  color: #f5ba13;
 }
 
 
 form.editnote input,
 form.editnote textarea {
-  
+
   width: 100%;
   border: none;
   padding: 4px;
@@ -138,16 +163,16 @@ form.editnote textarea {
   resize: none;
 }
 
-form.editnote input{
+form.editnote input {
   border-bottom: 1px solid black;
 }
 
 
-.popup{
+.popup {
   position: fixed;
   top: 0;
   left: 0;
-
+  z-index: 2;
   background-color: rgba(0, 0, 0, 0.3);
   height: 100vh;
   width: 100%;
@@ -157,22 +182,24 @@ form.editnote input{
   align-items: center;
 
 }
-.popup-inner{
-position: relative;
-padding: 32px;
-width: 25%;
-border-radius: 10px;
-background-color: white;
-font-size: 0.6rem;
 
- 
+.popup-inner {
+  position: relative;
+  padding: 32px;
+  width: 25%;
+  border-radius: 10px;
+  background-color: white;
+  font-size: 0.6rem;
+
+
 }
-.popup-inner button{
+
+.popup-inner button {
   float: right;
   position: relative;
   float: right;
   margin-right: 10px;
-  margin-left:10px ;
+  margin-left: 10px;
   color: #f5ba13;
   border: none;
   width: 36px;
@@ -184,43 +211,10 @@ font-size: 0.6rem;
 }
 
 
-@media (max-width:757px){
-  .popup-inner{
+
+@media (max-width:757px) {
+  .popup-inner {
     width: 70%;
   }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 

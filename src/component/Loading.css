@@ -1,9 +1,19 @@
-.loading_screen {
-  position: fixed;
-  width: 8rem;
-  height: 8rem;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 10vh 10vh 0 0;
+.loading_screen_container {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  width: 35px;
+
+}
+
+
+
+.refresh_button {
+  position: absolute;
+  right: 10px;
+  top: 4px;
+  width: 50px;
+  background-color: white;
+  border: none;
+  cursor: pointer;
 }

@@ -23,6 +23,7 @@ function App() {
 
         Axios.get("https://fierce-spire-14700.herokuapp.com/").then((response) => {
             setnotes(response.data);
+
             setisLoad(false);
         }).catch(err => console.log(err))
     }
@@ -41,8 +42,17 @@ function App() {
             content: newNotes.content
         }
 
+        setnotes((prevnotes) => {
+            return [
+                ...prevnotes,
+                {
+                    _id: "123",
+                    title: newNotes.title,
+                    content: newNotes.content
+                }
+            ]
+        })
         Axios.post("https://fierce-spire-14700.herokuapp.com/", data).then(res => {
-            setisLoad(true)
             fetchData();
 
         })
@@ -67,8 +77,11 @@ function App() {
 
         setisdelete(false);
         setisLoad(true);
+        setnotes(notes.filter((elements) => {
 
-
+            return elements._id !== deleteID;
+        }));
+        console.log(deleteID);
         let data = {
             id: deleteID
         }
@@ -90,7 +103,7 @@ function App() {
             <Header />
             <InputArea onRefresh={fetchData} onAdd={addNotes} loading={isLoad} />
             <div className="allNotes" > {notes.map((noteitems, index) => {
-                return <Notes onDelete={setdelete} onUpdate={updateItem} id={noteitems._id.valueOf()} key={index} heading={noteitems.title} content={noteitems.content} />
+                return <Notes onDelete={setdelete} onUpdate={updateItem} id={noteitems._id.valueOf()} key={index} title={noteitems.title} content={noteitems.content} />
             })}</div>
 
 

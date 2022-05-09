@@ -15,7 +15,7 @@ function note(props) {
 
     const [inputText, setinputText] = useState({
         "_id": "",
-        title: props.heading,
+        title: props.title,
         content: props.content
     });
 
@@ -84,7 +84,7 @@ function note(props) {
 
             :
             <div>
-                <h1> {props.heading}</h1>
+                <h1> {props.title}</h1>
                 <p>{props.content}</p>
             </div>}
 

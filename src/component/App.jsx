@@ -11,6 +11,7 @@ import { useEffect } from "react";
 
 
 
+
 function App() {
 
     const [notes, setnotes] = useState([])
@@ -22,7 +23,7 @@ function App() {
         setisLoad(true);
 
         Axios.get("https://fierce-spire-14700.herokuapp.com/").then((response) => {
-            setnotes(response.data);
+            setnotes(response.data.reverse());
 
             setisLoad(false);
         }).catch(err => console.log(err))
@@ -42,18 +43,10 @@ function App() {
             content: newNotes.content
         }
 
-        setnotes((prevnotes) => {
-            return [
-                ...prevnotes,
-                {
-                    _id: "123",
-                    title: newNotes.title,
-                    content: newNotes.content
-                }
-            ]
-        })
+
         Axios.post("https://fierce-spire-14700.herokuapp.com/", data).then(res => {
-            fetchData();
+            if (res)
+                fetchData();
 
         })
 
@@ -81,7 +74,7 @@ function App() {
 
             return elements._id !== deleteID;
         }));
-        console.log(deleteID);
+
         let data = {
             id: deleteID
         }

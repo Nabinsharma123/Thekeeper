@@ -1,3 +1,4 @@
+import React from 'react';
 const cloud = () => {
     return (
         <div className="cloud_container" >
